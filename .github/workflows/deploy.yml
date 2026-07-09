@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
 
+# 关键：给部署流程开启完整读写权限，解决code 128报错
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
