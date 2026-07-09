@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
 
-# 关键：给部署流程开启完整读写权限，解决code 128报错
 permissions:
   contents: write
   pages: write
@@ -14,22 +13,27 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Set up Node.js
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
-      
+
       - name: Install dependencies
         run: npm ci
-      
-      - name: Build
+
+      - name: Build project
         run: npm run build
-      
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+
+      # 上传dist静态产物（官方标准步骤）
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: ./dist
+
+      # 正式部署到Pages，会自动生成网站地址
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
