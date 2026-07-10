@@ -44,8 +44,8 @@
         <div @click="reviewQuestion(index)" style="font-size: 16px; line-height: 1.6; color: #333; cursor: pointer;">{{ item.question.question }}</div>
         
         <div v-if="item.question.type === 'single_choice' || item.question.type === 'multiple_choice'" style="margin-top: 12px;">
-          <div style="font-size: 14px; color: #E53935; margin-bottom: 4px;">你的答案：{{ formatAnswer(item.userAnswer) }}</div>
-          <div style="font-size: 14px; color: #2E7D32;">正确答案：{{ formatAnswer(item.question.answer) }}</div>
+          <div style="font-size: 14px; color: #E53935; margin-bottom: 4px;">你的答案：{{ formatAnswer(item.userAnswer, item.question) }}</div>
+          <div style="font-size: 14px; color: #2E7D32;">正确答案：{{ formatAnswer(item.question.answer, item.question) }}</div>
         </div>
         
         <div v-if="item.question.type === 'true_false'" style="margin-top: 12px;">
@@ -80,7 +80,26 @@ function removeWrong(id) {
   removeWrongQuestion(id)
 }
 
-function formatAnswer(answer) {
+function formatAnswer(answer, question) {
+  if (question.type === 'single_choice' || question.type === 'multiple_choice') {
+    if (Array.isArray(answer)) {
+      return answer.map(idx => {
+        const letter = ['A', 'B', 'C', 'D'][idx]
+        const option = question.options[idx]?.replace(/^[ABCD]\.\s*/, '') || ''
+        return `${letter}.${option}`
+      }).join('、')
+    }
+    if (typeof answer === 'number') {
+      const letter = ['A', 'B', 'C', 'D'][answer]
+      const option = question.options[answer]?.replace(/^[ABCD]\.\s*/, '') || ''
+      return `${letter}.${option}`
+    }
+    if (typeof answer === 'string' && /^[ABCD]$/.test(answer)) {
+      const idx = ['A', 'B', 'C', 'D'].indexOf(answer)
+      const option = question.options[idx]?.replace(/^[ABCD]\.\s*/, '') || ''
+      return `${answer}.${option}`
+    }
+  }
   if (Array.isArray(answer)) return answer.join('、')
   return answer
 }

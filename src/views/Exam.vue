@@ -67,7 +67,7 @@
             }"
           >
             <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option }}</span>
+            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
           </div>
         </div>
         
@@ -91,7 +91,7 @@
             }"
           >
             <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option }}</span>
+            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
           </div>
           <button 
             v-if="!showAnswer && getCurrentAnswerCount() >= 2"
@@ -256,7 +256,7 @@
               }"
             >
               <span style="font-weight: 600; margin-right: 8px;">{{ ['A', 'B', 'C', 'D'][optIndex] }}.</span>
-              <span>{{ option }}</span>
+              <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
             </div>
           </div>
           

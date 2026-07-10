@@ -89,7 +89,7 @@
             }"
           >
             <span class="option-letter">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option }}</span>
+            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
           </div>
         </div>
         
@@ -111,7 +111,7 @@
             }"
           >
             <span class="option-letter">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option }}</span>
+            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
           </div>
           <button 
             v-if="!showAnswer && selectedOptions.length >= 2"
@@ -350,7 +350,7 @@ function selectOption(index) {
         isCorrect
       })
       if (!isCorrect) {
-        addWrongQuestion(currentQuestion.value.id)
+        addWrongQuestion(currentQuestion.value.id, [index])
       }
     }, 300)
   }
@@ -386,7 +386,7 @@ function submitMultipleChoiceAnswer() {
   })
   
   if (!isCorrect) {
-    addWrongQuestion(currentQuestion.value.id)
+    addWrongQuestion(currentQuestion.value.id, [...selectedOptions.value])
   }
 }
 
@@ -417,7 +417,7 @@ function submitFillBlankAnswer() {
   })
   
   if (!isCorrect) {
-    addWrongQuestion(currentQuestion.value.id)
+    addWrongQuestion(currentQuestion.value.id, [...userAnswers.value])
   }
 }
 

@@ -139,14 +139,16 @@ export function useStore() {
     saveData(state)
   }
 
-  function addWrongQuestion(questionId) {
+  function addWrongQuestion(questionId, userAnswer) {
     const existing = state.wrongQuestions.find(w => w.questionId === questionId)
     if (existing) {
       existing.wrongCount++
       existing.lastWrongAt = new Date().toISOString()
+      existing.userAnswer = userAnswer
     } else {
       state.wrongQuestions.push({
         questionId,
+        userAnswer,
         wrongCount: 1,
         lastWrongAt: new Date().toISOString()
       })
