@@ -40,6 +40,11 @@ const routes = [
     component: () => import('../views/WrongQuestions.vue')
   },
   {
+    path: '/wrong/practice',
+    name: 'WrongPractice',
+    component: () => import('../views/WrongPractice.vue')
+  },
+  {
     path: '/favorites',
     name: 'Favorites',
     component: () => import('../views/Favorites.vue')

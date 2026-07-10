@@ -431,7 +431,8 @@ function getOptionColor(q, index, optIndex) {
     if (!isCorrect && isSelected) return '#E53935'
     return '#E0E0E0'
   } else if (q.type === 'true_false') {
-    const isCorrectOption = (optIndex === 0 && q.answer === true) || (optIndex === 1 && q.answer === false)
+    const isTrue = q.answer === true || q.answer === 'true' || q.answer === '正确' || q.answer === '对' || q.answer === 'A'
+    const isCorrectOption = (optIndex === 0 && isTrue) || (optIndex === 1 && !isTrue)
     const isSelected = result.userAnswer === optIndex
     
     if (isCorrectOption && isSelected) return '#43A047'
@@ -464,7 +465,8 @@ function getOptionBgColor(q, index, optIndex) {
     if (!isCorrect && isSelected) return '#FFCDD2'
     return 'white'
   } else if (q.type === 'true_false') {
-    const isCorrectOption = (optIndex === 0 && q.answer === true) || (optIndex === 1 && q.answer === false)
+    const isTrue = q.answer === true || q.answer === 'true' || q.answer === '正确' || q.answer === '对' || q.answer === 'A'
+    const isCorrectOption = (optIndex === 0 && isTrue) || (optIndex === 1 && !isTrue)
     const isSelected = result.userAnswer === optIndex
     
     if (isCorrectOption && isSelected) return '#C8E6C9'
@@ -511,7 +513,8 @@ function formatAnswer(q) {
     return answers.join('、')
   }
   if (q.type === 'true_false') {
-    return q.answer ? '正确' : '错误'
+    const isTrue = q.answer === true || q.answer === 'true' || q.answer === '正确' || q.answer === '对' || q.answer === 'A'
+    return isTrue ? '正确' : '错误'
   }
   if (Array.isArray(q.answer)) return q.answer.join('、')
   return q.answer
@@ -522,7 +525,8 @@ function isCorrectOption(index) {
   if (!q) return false
   
   if (q.type === 'true_false') {
-    return (index === 0 && q.answer === true) || (index === 1 && q.answer === false)
+    const isTrue = q.answer === true || q.answer === 'true' || q.answer === '正确' || q.answer === '对' || q.answer === 'A'
+    return (index === 0 && isTrue) || (index === 1 && !isTrue)
   }
   
   const answer = q.answer

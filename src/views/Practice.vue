@@ -439,7 +439,8 @@ function isBlankCorrect(index) {
 function isCorrectOption(index) {
   const answer = currentQuestion.value.answer
   if (currentQuestion.value.type === 'true_false') {
-    return (index === 0 && answer === true) || (index === 1 && answer === false)
+    const isTrue = answer === true || answer === 'true' || answer === '正确' || answer === '对' || answer === 'A'
+    return (index === 0 && isTrue) || (index === 1 && !isTrue)
   }
   const letters = ['A', 'B', 'C', 'D']
   const correctLetters = Array.isArray(answer) ? answer : [answer]
@@ -459,7 +460,8 @@ function formatAnswer(answer) {
     return answers.join('、')
   }
   if (currentQuestion.value?.type === 'true_false') {
-    return answer ? '正确' : '错误'
+    const isTrue = answer === true || answer === 'true' || answer === '正确' || answer === '对' || answer === 'A'
+    return isTrue ? '正确' : '错误'
   }
   if (Array.isArray(answer)) return answer.join('、')
   return answer

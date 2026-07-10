@@ -30,6 +30,11 @@
     </div>
     
     <div v-else>
+      <button 
+        @click="startPractice"
+        style="width: 100%; background-color: #2E7D32; color: white; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 600; border: none; margin-bottom: 16px;"
+      >开始错题练习</button>
+      
       <div 
         v-for="(item, index) in filteredWrongQuestions" 
         :key="item.question.id"
@@ -49,8 +54,13 @@
         </div>
         
         <div v-if="item.question.type === 'true_false'" style="margin-top: 12px;">
-          <div style="font-size: 14px; color: #E53935; margin-bottom: 4px;">你的答案：{{ item.userAnswer === 0 ? '正确' : '错误' }}</div>
-          <div style="font-size: 14px; color: #2E7D32;">正确答案：{{ item.question.answer === '对' || item.question.answer === '正确' || item.question.answer === 'A' ? '正确' : '错误' }}</div>
+          <div style="font-size: 14px; color: #E53935; margin-bottom: 4px;">你的答案：{{ formatAnswer(item.userAnswer, item.question) }}</div>
+          <div style="font-size: 14px; color: #2E7D32;">正确答案：{{ formatAnswer(item.question.answer, item.question) }}</div>
+        </div>
+        
+        <div v-if="item.question.type === 'fill_blank'" style="margin-top: 12px;">
+          <div style="font-size: 14px; color: #E53935; margin-bottom: 4px;">你的答案：{{ Array.isArray(item.userAnswer) ? item.userAnswer.join('、') : item.userAnswer || '-' }}</div>
+          <div style="font-size: 14px; color: #2E7D32;">正确答案：{{ formatAnswer(item.question.answer, item.question) }}</div>
         </div>
       </div>
     </div>
@@ -59,8 +69,10 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from '../store'
 
+const router = useRouter()
 const { categories, state, removeWrongQuestion, getQuestionById } = useStore()
 
 const showFilter = ref(false)
@@ -80,11 +92,30 @@ function removeWrong(id) {
   removeWrongQuestion(id)
 }
 
+function startPractice() {
+  router.push('/wrong/practice')
+}
+
 function formatAnswer(answer, question) {
+  if (question.type === 'fill_blank') {
+    if (question.blanks) {
+      return question.blanks.map(b => b.answer).join('、')
+    } else if (Array.isArray(question.answer)) {
+      return question.answer.join('、')
+    } else if (question.answer) {
+      return question.answer
+    }
+    return ''
+  }
+  
   if (question.type === 'single_choice' || question.type === 'multiple_choice') {
     if (Array.isArray(answer)) {
-      return answer.map(idx => {
-        const letter = ['A', 'B', 'C', 'D'][idx]
+      return answer.map(item => {
+        let idx = item
+        if (typeof item === 'string' && /^[ABCD]$/.test(item)) {
+          idx = ['A', 'B', 'C', 'D'].indexOf(item)
+        }
+        const letter = ['A', 'B', 'C', 'D'][idx] || item
         const option = question.options[idx]?.replace(/^[ABCD]\.\s*/, '') || ''
         return `${letter}.${option}`
       }).join('、')
@@ -100,6 +131,16 @@ function formatAnswer(answer, question) {
       return `${answer}.${option}`
     }
   }
+  
+  if (question.type === 'true_false') {
+    let val = answer
+    if (Array.isArray(answer)) {
+      val = answer[0]
+    }
+    const isTrue = val === true || val === 'true' || val === '正确' || val === '对' || val === 'A' || val === 0
+    return isTrue ? '正确' : '错误'
+  }
+  
   if (Array.isArray(answer)) return answer.join('、')
   return answer
 }
