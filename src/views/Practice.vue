@@ -56,6 +56,26 @@
       </div>
     </div>
     
+    <div v-if="showSequentialComplete" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+      <div class="card" style="width: 90%; max-width: 320px; padding: 24px;">
+        <div style="font-size: 16px; color: #333; margin-bottom: 20px; text-align: center;">已完成顺序练习的 {{ questionList.length }} 道题！</div>
+        <button 
+          @click="goHome" 
+          style="width: 100%; background-color: #2E7D32; color: white; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: 500; border: none;"
+        >返回首页</button>
+      </div>
+    </div>
+    
+    <div v-if="showCategoryComplete" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+      <div class="card" style="width: 90%; max-width: 320px; padding: 24px;">
+        <div style="font-size: 16px; color: #333; margin-bottom: 20px; text-align: center;">已完成{{ categories[practiceCategory]?.name }}的 {{ questionList.length }} 道题！</div>
+        <button 
+          @click="goHome" 
+          style="width: 100%; background-color: #2E7D32; color: white; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: 500; border: none;"
+        >返回首页</button>
+      </div>
+    </div>
+    
     <div v-else-if="currentQuestion">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <div style="font-size: 14px; color: #666;">{{ categoryName }} 第 {{ currentIndex + 1 }}/{{ questionList.length }} 题</div>
@@ -255,6 +275,8 @@ const currentProgress = computed(() => {
 const isStarted = ref(false)
 const showContinueDialog = ref(false)
 const showRandomComplete = ref(false)
+const showSequentialComplete = ref(false)
+const showCategoryComplete = ref(false)
 const questionCount = ref(10)
 const questionList = ref([])
 const currentIndex = ref(0)
@@ -487,6 +509,10 @@ function nextQuestion() {
   } else {
     if (isRandom.value) {
       showRandomComplete.value = true
+    } else if (isSequential.value) {
+      showSequentialComplete.value = true
+    } else if (practiceCategory.value) {
+      showCategoryComplete.value = true
     } else {
       router.push('/')
     }
