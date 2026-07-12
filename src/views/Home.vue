@@ -2,7 +2,7 @@
   <div class="page-container">
     <div class="card" style="padding: 0; overflow: hidden;">
       <div style="background-color: #2E7D32; color: white; padding: 16px; text-align: center; font-size: 18px; font-weight: 600;">
-        森林消防考试刷题
+        森林消防考试刷题（内部）
       </div>
       
       <div style="padding: 20px;">
