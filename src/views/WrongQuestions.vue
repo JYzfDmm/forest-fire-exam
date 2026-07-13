@@ -113,21 +113,21 @@ function formatAnswer(answer, question) {
       return answer.map(item => {
         let idx = item
         if (typeof item === 'string' && /^[ABCD]$/.test(item)) {
-          idx = ['A', 'B', 'C', 'D'].indexOf(item)
+          idx = ['A', 'B', 'C', 'D', 'E'].indexOf(item)
         }
-        const letter = ['A', 'B', 'C', 'D'][idx] || item
-        const option = question.options[idx]?.replace(/^[ABCD]\.\s*/, '') || ''
+        const letter = ['A', 'B', 'C', 'D', 'E'][idx] || item
+        const option = question.options[idx]?.replace(/^[ABCDE]\.\s*/, '') || ''
         return `${letter}.${option}`
       }).join('、')
     }
     if (typeof answer === 'number') {
-      const letter = ['A', 'B', 'C', 'D'][answer]
-      const option = question.options[answer]?.replace(/^[ABCD]\.\s*/, '') || ''
+      const letter = ['A', 'B', 'C', 'D', 'E'][answer]
+      const option = question.options[answer]?.replace(/^[ABCDE]\.\s*/, '') || ''
       return `${letter}.${option}`
     }
-    if (typeof answer === 'string' && /^[ABCD]$/.test(answer)) {
-      const idx = ['A', 'B', 'C', 'D'].indexOf(answer)
-      const option = question.options[idx]?.replace(/^[ABCD]\.\s*/, '') || ''
+    if (typeof answer === 'string' && /^[ABCDE]$/.test(answer)) {
+      const idx = ['A', 'B', 'C', 'D', 'E'].indexOf(answer)
+      const option = question.options[idx]?.replace(/^[ABCDE]\.\s*/, '') || ''
       return `${answer}.${option}`
     }
   }

@@ -5,10 +5,10 @@ const STORAGE_KEY = 'forest_fire_exam_data'
 
 const defaultData = {
   progress: {
-    single_choice: { currentIndex: 0, total: 106 },
-    multiple_choice: { currentIndex: 0, total: 80 },
+    single_choice: { currentIndex: 0, total: 91 },
+    multiple_choice: { currentIndex: 0, total: 70 },
     true_false: { currentIndex: 0, total: 120 },
-    fill_blank: { currentIndex: 0, total: 196 },
+    fill_blank: { currentIndex: 0, total: 195 },
     short_answer: { currentIndex: 0, total: 38 },
     sequential: { currentIndex: 0 }
   },

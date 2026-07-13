@@ -66,8 +66,8 @@
               alignItems: 'center'
             }"
           >
-            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D', 'E'][index] }}.</span>
+            <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
           </div>
         </div>
         
@@ -90,8 +90,8 @@
               alignItems: 'center'
             }"
           >
-            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D', 'E'][index] }}.</span>
+            <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
           </div>
           <button 
             v-if="!showAnswer && getCurrentAnswerCount() >= 2"
@@ -255,8 +255,8 @@
                 fontSize: '14px'
               }"
             >
-              <span style="font-weight: 600; margin-right: 8px;">{{ ['A', 'B', 'C', 'D'][optIndex] }}.</span>
-              <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+              <span style="font-weight: 600; margin-right: 8px;">{{ ['A', 'B', 'C', 'D', 'E'][optIndex] }}.</span>
+              <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
             </div>
           </div>
           
@@ -312,7 +312,7 @@ const score = computed(() => {
     
     let isCorrect = false
     const correctAnswer = q.answer
-    const letters = ['A', 'B', 'C', 'D']
+    const letters = ['A', 'B', 'C', 'D', 'E']
     
     if (q.type === 'fill_blank') {
       const answer = q.blanks || q.answer
@@ -352,7 +352,7 @@ const correctCount = computed(() => {
     
     let isCorrect = false
     const correctAnswer = q.answer
-    const letters = ['A', 'B', 'C', 'D']
+    const letters = ['A', 'B', 'C', 'D', 'E']
     
     if (q.type === 'fill_blank') {
       const answer = q.blanks || q.answer
@@ -393,7 +393,7 @@ function getQuestionResult(index) {
   }
   
   const correctAnswer = q.answer
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   
   if (q.type === 'multiple_choice') {
     const correctLetters = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer]
@@ -419,7 +419,7 @@ function getQuestionResult(index) {
 
 function getOptionColor(q, index, optIndex) {
   const result = getQuestionResult(index)
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   
   if (q.type === 'multiple_choice') {
     const correctLetters = Array.isArray(q.answer) ? q.answer : [q.answer]
@@ -453,7 +453,7 @@ function getOptionColor(q, index, optIndex) {
 
 function getOptionBgColor(q, index, optIndex) {
   const result = getQuestionResult(index)
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   
   if (q.type === 'multiple_choice') {
     const correctLetters = Array.isArray(q.answer) ? q.answer : [q.answer]
@@ -530,7 +530,7 @@ function isCorrectOption(index) {
   }
   
   const answer = q.answer
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   const correctLetters = Array.isArray(answer) ? answer : [answer]
   return correctLetters.includes(letters[index])
 }
@@ -656,7 +656,7 @@ function finishExam() {
     
     let isCorrect = false
     const correctAnswer = q.answer
-    const letters = ['A', 'B', 'C', 'D']
+    const letters = ['A', 'B', 'C', 'D', 'E']
     
     if (q.type === 'fill_blank') {
       const answer = q.blanks || q.answer

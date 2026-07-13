@@ -108,8 +108,8 @@
               backgroundColor: showAnswer && isCorrectOption(index) ? '#C8E6C9' : (showAnswer && selectedOptions.includes(index) && !isCorrectOption(index) ? '#FFCDD2' : (selectedOptions.includes(index) ? '#C8E6C9' : 'white'))
             }"
           >
-            <span class="option-letter">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+            <span class="option-letter">{{ ['A', 'B', 'C', 'D', 'E'][index] }}.</span>
+            <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
           </div>
         </div>
         
@@ -130,8 +130,8 @@
               backgroundColor: showAnswer && isCorrectOption(index) ? '#C8E6C9' : (showAnswer && selectedOptions.includes(index) && !isCorrectOption(index) ? '#FFCDD2' : (selectedOptions.includes(index) ? '#C8E6C9' : 'white'))
             }"
           >
-            <span class="option-letter">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+            <span class="option-letter">{{ ['A', 'B', 'C', 'D', 'E'][index] }}.</span>
+            <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
           </div>
           <button 
             v-if="!showAnswer && selectedOptions.length >= 2"
@@ -393,7 +393,7 @@ function submitMultipleChoiceAnswer() {
   showAnswer.value = true
   
   const answer = currentQuestion.value.answer
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   const correctLetters = Array.isArray(answer) ? answer : [answer]
   const selectedLetters = selectedOptions.value.map(i => letters[i])
   
@@ -464,7 +464,7 @@ function isCorrectOption(index) {
     const isTrue = answer === true || answer === 'true' || answer === '正确' || answer === '对' || answer === 'A'
     return (index === 0 && isTrue) || (index === 1 && !isTrue)
   }
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   const correctLetters = Array.isArray(answer) ? answer : [answer]
   return correctLetters.includes(letters[index])
 }

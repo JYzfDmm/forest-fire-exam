@@ -35,8 +35,8 @@
               alignItems: 'center'
             }"
           >
-            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D', 'E'][index] }}.</span>
+            <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
           </div>
         </div>
         
@@ -59,8 +59,8 @@
               alignItems: 'center'
             }"
           >
-            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D'][index] }}.</span>
-            <span>{{ option.replace(/^[ABCD]\.\s*/, '') }}</span>
+            <span style="font-weight: 600; margin-right: 12px; color: #666;">{{ ['A', 'B', 'C', 'D', 'E'][index] }}.</span>
+            <span>{{ option.replace(/^[ABCDE]\.\s*/, '') }}</span>
           </div>
           <button 
             v-if="!showAnswer && selectedOptions.length >= 2"
@@ -254,7 +254,7 @@ function submitAnswer() {
   
   const answer = currentQuestion.value.answer
   const correctAnswers = Array.isArray(answer) ? answer : [answer]
-  const correctIndices = correctAnswers.map(a => ['A', 'B', 'C', 'D'].indexOf(a)).filter(i => i >= 0)
+  const correctIndices = correctAnswers.map(a => ['A', 'B', 'C', 'D', 'E'].indexOf(a)).filter(i => i >= 0)
   
   const isCorrect = correctIndices.length === selectedOptions.value.length &&
                     correctIndices.every(idx => selectedOptions.value.includes(idx)) &&
@@ -309,7 +309,7 @@ function isCorrectOption(index) {
     const isTrue = answer === true || answer === 'true' || answer === '正确' || answer === '对' || answer === 'A'
     return (index === 0 && isTrue) || (index === 1 && !isTrue)
   }
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D', 'E']
   const correctLetters = Array.isArray(answer) ? answer : [answer]
   return correctLetters.includes(letters[index])
 }
